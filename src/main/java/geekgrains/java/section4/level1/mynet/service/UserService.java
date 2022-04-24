@@ -15,13 +15,16 @@ public class UserService {
     public UserDto getUser(String login) {
         UserDto userDto = new UserDto();
         Map.setUserDtoFromUser(userRepository.findByLogin(login).orElse(new User()), userDto);
-        userDto.setPassword(null);
         return userDto;
     }
 
-//    public void setUser(UserDto userDto) {
-//        User user = new User();
-//
-//        userRepository.save()
-//    }
+    public void setUser(UserDto userDto) {
+        User user = userRepository.findByLogin(userDto.getLogin()).orElse(null);
+//        userRepository.save(user);
+        if (user != null) {
+            if (userDto.getPassword() == null) userDto.setPassword(user.getPassword());
+            Map.setUserFromUserDto(userDto, user);
+            userRepository.save(user);
+        };
+    }
 }

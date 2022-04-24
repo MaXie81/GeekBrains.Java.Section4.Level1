@@ -16,10 +16,8 @@ public class UserController {
     public UserDto getUser(@PathVariable String login) {
         return userService.getUser(login);
     }
-//    @PostMapping("/{login}")
-//    public UserDto getUser(@RequestBody UserDto userDto) {
-//        UserDto userDto = Map.setUserDtoFromUser(userService.getUser(login));
-//        userDto.setPassword(null);
-//        return userDto;
-//    }
+    @PostMapping
+    public void getUser(@RequestBody UserDto userDto) {
+        userService.setUser(userDto);
+    }
 }

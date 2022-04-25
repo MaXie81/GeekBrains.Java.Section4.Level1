@@ -44,4 +44,13 @@ public class UserService {
             userRepository.save(user);
         };
     }
+
+    public void deleteFriend(FriendDto friendDto) {
+        User user = userRepository.findByLogin(friendDto.getUserLogin()).orElse(null);
+        User friend = userRepository.findByLogin(friendDto.getFriendLogin()).orElse(null);
+        if (user != null && friend != null) {
+            user.getFriends().remove(friend);
+            userRepository.save(user);
+        };
+    }
 }

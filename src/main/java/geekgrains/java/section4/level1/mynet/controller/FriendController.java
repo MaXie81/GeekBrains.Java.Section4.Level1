@@ -17,9 +17,12 @@ public class FriendController {
         return userService.getFriendList(login);
     }
 
-    @PostMapping
+    @PostMapping("/add")
     public void addFriend(@RequestBody FriendDto friendDto) {
         userService.addFriend(friendDto);
     }
-
+    @PostMapping("/delete")
+    public void deleteFriend(@RequestBody FriendDto friendDto) {
+        userService.deleteFriend(friendDto);
+    }
 }

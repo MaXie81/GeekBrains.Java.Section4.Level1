@@ -16,7 +16,7 @@ public class UserController {
         return userService.getUser(login);
     }
     @PostMapping
-    public void getUser(@RequestBody UserDataDto userDataDto) {
+    public void setUser(@RequestBody UserDataDto userDataDto) {
         userService.setUser(userDataDto);
     }
 }

@@ -1,8 +1,7 @@
 package geekgrains.java.section4.level1.mynet.controller;
 
-import geekgrains.java.section4.level1.mynet.dto.UserDto;
+import geekgrains.java.section4.level1.mynet.dto.UserDataDto;
 import geekgrains.java.section4.level1.mynet.service.UserService;
-import geekgrains.java.section4.level1.mynet.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,11 +12,11 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{login}")
-    public UserDto getUser(@PathVariable String login) {
+    public UserDataDto getUser(@PathVariable String login) {
         return userService.getUser(login);
     }
     @PostMapping
-    public void getUser(@RequestBody UserDto userDto) {
-        userService.setUser(userDto);
+    public void getUser(@RequestBody UserDataDto userDataDto) {
+        userService.setUser(userDataDto);
     }
 }

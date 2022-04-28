@@ -1,7 +1,9 @@
 package geekgrains.java.section4.level1.mynet.util;
 
+import geekgrains.java.section4.level1.mynet.dto.MessageDto;
 import geekgrains.java.section4.level1.mynet.dto.UserDataDto;
 import geekgrains.java.section4.level1.mynet.dto.FriendListDto;
+import geekgrains.java.section4.level1.mynet.entity.Message;
 import geekgrains.java.section4.level1.mynet.entity.User;
 
 import java.util.stream.Collectors;
@@ -23,5 +25,10 @@ public class Map {
                 .map(friend -> friend.getLogin())
                 .collect(Collectors.toList())
         );
+    }
+    static public void setMessageDtoFromMassege(Message message, MessageDto messageDto) {
+        messageDto.setAuthorUserLogin(message.getAuthorUser().getLogin());
+        messageDto.setRecipientUserLogin(message.getRecipientUser().getLogin());
+        messageDto.setBody(message.getBody());
     }
 }

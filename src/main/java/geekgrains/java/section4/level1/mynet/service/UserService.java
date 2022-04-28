@@ -16,13 +16,17 @@ import java.util.List;
 public class UserService {
     private final UserRepository userRepository;
 
-    public UserDto getUser(String login) {
+    public User getUserByLogin(String login) {
+        return userRepository.findByLogin(login).orElse(new User());
+    }
+
+    public UserDto getUserData(String login) {
         UserDto userDto = new UserDto();
         Map.setUserDtoFromUser(userRepository.findByLogin(login).orElse(new User()), userDto);
         return userDto;
     }
 
-    public void setUser(UserDto userDto) {
+    public void setUserData(UserDto userDto) {
         User user = userRepository.findByLogin(userDto.getLogin()).orElse(null);
 
         if (user != null) {
@@ -44,7 +48,7 @@ public class UserService {
         }
         return friendLoginListDto;
     }
-    public List<UserLoginDto> getUserLoginList(String login) {
+    public List<UserLoginDto> getNonFriendLoginList(String login) {
         List<UserLoginDto> userLoginListDto = new ArrayList<>();
         User currentUser = userRepository.findByLogin(login).orElse(null);
 

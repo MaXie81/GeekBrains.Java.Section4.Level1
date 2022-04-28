@@ -18,8 +18,8 @@ public class FriendController {
         return userService.getFriendLoginList(login);
     }
     @GetMapping("/find/{login}")
-    public List<UserLoginDto> getUserList(@PathVariable String login) {
-        return userService.getUserLoginList(login);
+    public List<UserLoginDto> getNonFriendList(@PathVariable String login) {
+        return userService.getNonFriendLoginList(login);
     }
 
     @PostMapping("/add/{login}")

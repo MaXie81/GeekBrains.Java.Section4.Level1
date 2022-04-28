@@ -16,8 +16,8 @@ import java.util.List;
 public class MessageController {
     private final MessageServise messageServise;
 
-    @GetMapping("/{id}")
-    public List<MessageDto> getFriendList(@PathVariable Long id) {
-        return messageServise.getMessageListByAuthorId(id);
+    @GetMapping("/{login}")
+    public List<MessageDto> getMessageListByAuthorUser(@PathVariable String login) {
+        return messageServise.getMessageListByAuthorUser(login);
     }
 }

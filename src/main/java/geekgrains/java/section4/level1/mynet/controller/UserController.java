@@ -12,11 +12,11 @@ public class UserController {
     private final UserService userService;
 
     @GetMapping("/{login}")
-    public UserDto getUser(@PathVariable String login) {
-        return userService.getUser(login);
+    public UserDto getUserData(@PathVariable String login) {
+        return userService.getUserData(login);
     }
     @PostMapping
-    public void setUser(@RequestBody UserDto userDto) {
-        userService.setUser(userDto);
+    public void setUserData(@RequestBody UserDto userDto) {
+        userService.setUserData(userDto);
     }
 }

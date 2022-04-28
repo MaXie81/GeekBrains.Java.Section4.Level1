@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FriendDto {
-    private String userLogin;
-    private String friendLogin;
+public class UserLoginDto {
+    private String login;
 }

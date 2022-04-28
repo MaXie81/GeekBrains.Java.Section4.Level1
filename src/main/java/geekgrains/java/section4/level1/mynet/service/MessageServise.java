@@ -16,15 +16,15 @@ public class MessageServise {
     private final MessageRepository messageRepository;
 
     public List<MessageDto> getMessageListByAuthorId(Long id) {
-        List<MessageDto> messageDtoList = new ArrayList<>();
+        List<MessageDto> messageListDto = new ArrayList<>();
         List<Message> messageList = messageRepository.findAllByAuthorUserId(id);
 
         if (messageList.size() != 0)
             for (Message message : messageList) {
                 MessageDto messageDto = new MessageDto();
                 Map.setMessageDtoFromMassege(message, messageDto);
-                messageDtoList.add(messageDto);
+                messageListDto.add(messageDto);
             }
-        return messageDtoList;
+        return messageListDto;
     }
 }

@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FriendListDto {
-    private String userLogin;
-    private List<String> listFriendLogin;
+public class UserDto {
+    private String login;
+    private String password;
+    private String nickname;
+    private String email;
 }

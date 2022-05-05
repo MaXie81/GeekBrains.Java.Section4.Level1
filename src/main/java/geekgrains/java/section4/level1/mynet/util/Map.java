@@ -4,10 +4,8 @@ import geekgrains.java.section4.level1.mynet.dto.MessageDto;
 import geekgrains.java.section4.level1.mynet.dto.UserDto;
 import geekgrains.java.section4.level1.mynet.entity.Message;
 import geekgrains.java.section4.level1.mynet.entity.User;
-import org.hibernate.type.DateType;
 
 import java.util.Date;
-import java.util.stream.Collectors;
 
 public class Map {
     static public void setUserDtoFromUser(User user, UserDto userDto) {

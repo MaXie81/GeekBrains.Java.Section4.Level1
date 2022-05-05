@@ -4,7 +4,9 @@ import geekgrains.java.section4.level1.mynet.dto.MessageDto;
 import geekgrains.java.section4.level1.mynet.dto.UserDto;
 import geekgrains.java.section4.level1.mynet.entity.Message;
 import geekgrains.java.section4.level1.mynet.entity.User;
+import org.hibernate.type.DateType;
 
+import java.util.Date;
 import java.util.stream.Collectors;
 
 public class Map {
@@ -22,5 +24,6 @@ public class Map {
         messageDto.setAuthorUserLogin(message.getAuthorUser().getLogin());
         messageDto.setRecipientUserLogin(message.getRecipientUser().getLogin());
         messageDto.setBody(message.getBody());
+        messageDto.setDatetime(new Date(message.getDatetime().getTime()).toString());
     }
 }

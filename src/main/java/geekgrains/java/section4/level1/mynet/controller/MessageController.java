@@ -1,7 +1,7 @@
 package geekgrains.java.section4.level1.mynet.controller;
 
 import geekgrains.java.section4.level1.mynet.dto.MessageDto;
-import geekgrains.java.section4.level1.mynet.service.MessageServise;
+import geekgrains.java.section4.level1.mynet.service.MessageService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,10 +14,10 @@ import java.util.List;
 @RequestMapping("/message")
 @RequiredArgsConstructor
 public class MessageController {
-    private final MessageServise messageServise;
+    private final MessageService messageService;
 
-    @GetMapping("/{login}")
-    public List<MessageDto> getMessageListByAuthorUser(@PathVariable String login) {
-        return messageServise.getMessageListByAuthorUser(login);
+    @GetMapping("/friend/{login}/{friendLogin}")
+    public List<MessageDto> getChatMessageListByFriendUser(@PathVariable String login, @PathVariable String friendLogin) {
+        return messageService.getChatMessageListByFriendUser(login, friendLogin);
     }
 }

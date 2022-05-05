@@ -3,6 +3,7 @@ package geekgrains.java.section4.level1.mynet.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 
 @Entity
 @Data
@@ -20,4 +21,6 @@ public class Message {
     private User recipientUser;
     @Column(name = "body")
     private String body;
+    @Column(name = "created_at")
+    private Timestamp datetime;
 }

@@ -13,7 +13,20 @@ create table messages(
     foreign key(root_message_id)    references messages(id)
 );
 
-insert into messages(author_id, recipient_id, body) values(1, 2, 'Привет!');
-insert into messages(author_id, recipient_id, body) values(2, 1, 'Привет!');
-insert into messages(author_id, recipient_id, body) values(1, 2, 'Как дела?');
-insert into messages(author_id, recipient_id, body) values(2, 1, 'Норм! Как сам?');
+insert into messages(author_id, recipient_id, body, created_at) values(1, 2, 'Боб-Макс: Привет!', current_timestamp() +0);
+insert into messages(author_id, recipient_id, body, created_at) values(2, 1, 'Макс-Боб: Привет!', current_timestamp() +1);
+insert into messages(author_id, recipient_id, body, created_at) values(1, 2, 'Боб-Макс: Как дела?', current_timestamp() +2);
+insert into messages(author_id, recipient_id, body, created_at) values(2, 1, 'Макс-Боб: Норм! Как сам?', current_timestamp() +3);
+insert into messages(author_id, recipient_id, body, created_at) values(1, 2, 'Боб-Макс: Что у тебя нового?', current_timestamp() +4);
+insert into messages(author_id, recipient_id, body, created_at) values(2, 1, 'Макс-Боб: Да без изменений! Как у тебя с обучением?', current_timestamp() +5);
+insert into messages(author_id, recipient_id, body, created_at) values(1, 2, 'Боб-Макс: Учусь. )', current_timestamp() +6);
+
+insert into messages(author_id, recipient_id, body, created_at) values(1, 3, 'Боб-Том: Привет, Том!', current_timestamp() +0);
+insert into messages(author_id, recipient_id, body, created_at) values(3, 1, 'Том-Боб: Привет.', current_timestamp() +1);
+insert into messages(author_id, recipient_id, body, created_at) values(1, 3, 'Боб-Том: Что хмурый такой7', current_timestamp() +2);
+insert into messages(author_id, recipient_id, body, created_at) values(3, 1, 'Том-Боб: Задолбался.', current_timestamp() +3);
+
+insert into messages(author_id, recipient_id, body, created_at) values(3, 2, 'Том-Макс: Здорово.', current_timestamp() +0);
+insert into messages(author_id, recipient_id, body, created_at) values(2, 3, 'Макс-Том: Привет, Боб!', current_timestamp() +1);
+insert into messages(author_id, recipient_id, body, created_at) values(3, 2, 'Том-Макс: Ты домашку сделал?', current_timestamp() +2);
+insert into messages(author_id, recipient_id, body, created_at) values(2, 3, 'Макс-Том: В процессе!', current_timestamp() +3);

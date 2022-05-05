@@ -9,9 +9,10 @@ import java.util.Date;
 
 public class Map {
     static public void setUserDtoFromUser(User user, UserDto userDto) {
-       userDto.setLogin(user.getLogin());
-       userDto.setNickname(user.getNickname());
-       userDto.setEmail(user.getEmail());
+        userDto.setLogin(user.getLogin());
+        userDto.setPassword("");
+        userDto.setNickname(user.getNickname());
+        userDto.setEmail(user.getEmail());
     }
     static public void setUserFromUserDto(UserDto userDto, User user) {
         user.setPassword(userDto.getPassword());

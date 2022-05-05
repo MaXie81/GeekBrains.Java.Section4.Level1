@@ -14,9 +14,9 @@ import java.util.List;
 public class MessageController {
     private final MessageService messageService;
 
-    @GetMapping("/friend/{login}/{friendLogin}")
-    public List<MessageDto> getChatMessageListByFriendUser(@PathVariable String login, @PathVariable String friendLogin) {
-        return messageService.getChatMessageListByFriendUser(login, friendLogin);
+    @GetMapping("/friend/{login}")
+    public List<MessageDto> getChatMessageListByFriendUser(@PathVariable String login, @RequestParam(name = "from") String authorLogin) {
+        return messageService.getChatMessageListByFriendUser(login, authorLogin);
     }
     @PostMapping("/send/{login}")
     public void sendMessageToFriend(@PathVariable String login, @RequestBody MessageDto messageDto) {

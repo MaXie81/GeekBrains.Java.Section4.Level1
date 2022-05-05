@@ -26,8 +26,8 @@ public class UserService {
         return userDto;
     }
 
-    public void setUserData(UserDto userDto) {
-        User user = userRepository.findByLogin(userDto.getLogin()).orElse(null);
+    public void setUserData(String login, UserDto userDto) {
+        User user = userRepository.findByLogin(login).orElse(null);
 
         if (user != null) {
             if (userDto.getPassword() == null) userDto.setPassword(user.getPassword());

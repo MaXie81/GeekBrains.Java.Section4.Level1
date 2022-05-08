@@ -5,6 +5,7 @@ import geekgrains.java.section4.level1.mynet.dto.UserLoginDto;
 import geekgrains.java.section4.level1.mynet.entity.User;
 import geekgrains.java.section4.level1.mynet.repository.UserRepository;
 import geekgrains.java.section4.level1.mynet.util.Map;
+import geekgrains.java.section4.level1.mynet.util.UserBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -93,8 +94,10 @@ public class UserService {
         User currentUser = userRepository.findByLogin(userDto.getLogin()).orElse(null);
 
         if (currentUser == null) {
-            User user = new User();
-            Map.setUserFromUserDto(userDto, user);
+            User user = new UserBuilder(userDto.getLogin(), userDto.getPassword())
+                    .setNickname(userDto.getNickname())
+                    .setEmail(userDto.getEmail())
+                    .build();
             userRepository.save(user);
         }
     }

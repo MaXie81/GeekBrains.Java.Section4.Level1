@@ -1,6 +1,7 @@
 package geekgrains.java.section4.level1.mynet.entity;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,6 +9,7 @@ import java.util.stream.Collectors;
 
 @Entity
 @Data
+@NoArgsConstructor
 @Table(name = "users")
 public class User {
     @Id
@@ -30,6 +32,11 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "friend_id")
     )
     private List<User> friends;
+
+    public User(String login, String password) {
+        this.login = login;
+        this.password = password;
+    }
 
     @Override
     public String toString() {

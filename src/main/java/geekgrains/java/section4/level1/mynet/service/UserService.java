@@ -88,4 +88,14 @@ public class UserService {
             userRepository.save(currentUser);
         }
     }
+
+    public void addNewUser(UserDto userDto) {
+        User currentUser = userRepository.findByLogin(userDto.getLogin()).orElse(null);
+
+        if (currentUser == null) {
+            User user = new User();
+            Map.setUserFromUserDto(userDto, user);
+            userRepository.save(user);
+        }
+    }
 }

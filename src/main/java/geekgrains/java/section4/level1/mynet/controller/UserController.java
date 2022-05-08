@@ -20,4 +20,9 @@ public class UserController {
     public void setUserData(@PathVariable String login, @RequestBody UserDto userDto) {
         userService.setUserData(login, userDto);
     }
+
+    @PostMapping
+    public void addNewUser(@RequestBody UserDto userDto) {
+        userService.addNewUser(userDto);
+    }
 }

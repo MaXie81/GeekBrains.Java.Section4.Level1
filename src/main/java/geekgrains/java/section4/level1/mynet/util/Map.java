@@ -15,6 +15,9 @@ public class Map {
         userDto.setEmail(user.getEmail());
     }
     static public void setUserFromUserDto(UserDto userDto, User user) {
+        if (user.getLogin() == null) {
+            user.setLogin(userDto.getLogin());
+        }
         user.setPassword(userDto.getPassword());
         user.setNickname(userDto.getNickname());
         user.setEmail(userDto.getEmail());

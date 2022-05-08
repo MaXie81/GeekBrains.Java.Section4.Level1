@@ -15,6 +15,7 @@ public class UserController {
     public UserDto getUserData(@PathVariable String login) {
         return userService.getUserData(login);
     }
+    // установка данных пользователя
     @PostMapping("/{login}")
     public void setUserData(@PathVariable String login, @RequestBody UserDto userDto) {
         userService.setUserData(login, userDto);

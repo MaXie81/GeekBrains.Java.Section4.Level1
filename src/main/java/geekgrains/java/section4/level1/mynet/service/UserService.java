@@ -10,20 +10,34 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
     private final UserRepository userRepository;
+    private HashMap<String, User> userHashMap = new HashMap<>();
 
     public User getUserByLogin(String login) {
-        return userRepository.findByLogin(login).orElse(new User());
+        User user = userHashMap.get(login);
+
+        if (user == null) {
+            user = userRepository.findByLogin(login).orElse(null);
+            if (user != null) {
+                userHashMap.put(login, user);
+            }
+        }
+        return user;
     }
 
     public UserDto getUserData(String login) {
+        User user = getUserByLogin(login);
+        if (user == null) {
+            return null;
+        }
         UserDto userDto = new UserDto();
-        Map.setUserDtoFromUser(userRepository.findByLogin(login).orElse(new User()), userDto);
+        Map.setUserDtoFromUser(user, userDto);
         return userDto;
     }
 

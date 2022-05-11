@@ -32,17 +32,17 @@ public class UserService {
     }
 
     public UserDto getUserData(String login) {
-        User user = getUserByLogin(login);
-        if (user == null) {
-            return null;
-        }
         UserDto userDto = new UserDto();
-        Map.setUserDtoFromUser(user, userDto);
+        User user = getUserByLogin(login);
+
+        if (user != null) {
+            Map.setUserDtoFromUser(user, userDto);
+        }
         return userDto;
     }
 
     public void setUserData(String login, UserDto userDto) {
-        User user = userRepository.findByLogin(login).orElse(null);
+        User user = getUserByLogin(login);
 
         if (user != null) {
             if (userDto.getPassword() == null) userDto.setPassword(user.getPassword());
@@ -53,27 +53,28 @@ public class UserService {
 
     public List<UserLoginDto> getFriendLoginList(String login) {
         List<UserLoginDto> friendLoginListDto = new ArrayList<>();
-        User currentUser = userRepository.findByLogin(login).orElse(null);
+        User user = getUserByLogin(login);
 
-        if (currentUser != null) {
-            for (User friend : currentUser.getFriends()) {
+        if (user != null) {
+            for (User friend : user.getFriends()) {
                 UserLoginDto userLoginDto = new UserLoginDto(friend.getLogin());
                 friendLoginListDto.add(userLoginDto);
             }
         }
         return friendLoginListDto;
     }
+
     public List<UserLoginDto> getNonFriendLoginList(String login) {
         List<UserLoginDto> userLoginListDto = new ArrayList<>();
-        User currentUser = userRepository.findByLogin(login).orElse(null);
+        User user = getUserByLogin(login);
 
-        if (currentUser != null) {
+        if (user != null) {
             List<User> userList = userRepository.findAll();
 
-            for (User user : userList) {
-                if (currentUser.getLogin().equals(user.getLogin())) continue;
-                if (currentUser.getFriends().stream().filter(friend -> friend.getLogin().equals(user.getLogin())).count() > 0) continue;
-                UserLoginDto userLoginDto = new UserLoginDto(user.getLogin());
+            for (User userCurrent : userList) {
+                if (user.getLogin().equals(userCurrent.getLogin())) continue;
+                if (user.getFriends().stream().filter(friend -> friend.getLogin().equals(userCurrent.getLogin())).count() > 0) continue;
+                UserLoginDto userLoginDto = new UserLoginDto(userCurrent.getLogin());
                 userLoginListDto.add(userLoginDto);
             }
         }
@@ -81,38 +82,40 @@ public class UserService {
     }
 
     public void addFriend(String login, List<UserLoginDto> userLoginListDto) {
-        User currentUser = userRepository.findByLogin(login).orElse(null);
+        User user = getUserByLogin(login);
 
-        if (currentUser != null) {
+        if (user != null) {
             for (UserLoginDto userLoginDto : userLoginListDto) {
-                User friendUser = userRepository.findByLogin(userLoginDto.getLogin()).orElse(null);
-                if (friendUser != null) currentUser.getFriends().add(friendUser);
+                User friendUser = getUserByLogin(userLoginDto.getLogin());
+                if (friendUser != null) {
+                    user.getFriends().add(friendUser);
+                }
             }
-            userRepository.save(currentUser);
+            userRepository.save(user);
         }
     }
 
     public void deleteFriend(String login, List<UserLoginDto> userLoginListDto) {
-        User currentUser = userRepository.findByLogin(login).orElse(null);
+        User user = getUserByLogin(login);
 
-        if (currentUser != null) {
+        if (user != null) {
             for (UserLoginDto userLoginDto : userLoginListDto) {
-                User friendUser = userRepository.findByLogin(userLoginDto.getLogin()).orElse(null);
-                if (friendUser != null) currentUser.getFriends().remove(friendUser);
+                User friendUser = getUserByLogin(userLoginDto.getLogin());
+                if (friendUser != null) user.getFriends().remove(friendUser);
             }
-            userRepository.save(currentUser);
+            userRepository.save(user);
         }
     }
 
     public void addNewUser(UserDto userDto) {
-        User currentUser = userRepository.findByLogin(userDto.getLogin()).orElse(null);
+        User user = getUserByLogin(userDto.getLogin());
 
-        if (currentUser == null) {
-            User user = new UserBuilder(userDto.getLogin(), userDto.getPassword())
+        if (user == null) {
+            User newUser = new UserBuilder(userDto.getLogin(), userDto.getPassword())
                     .setNickname(userDto.getNickname())
                     .setEmail(userDto.getEmail())
                     .build();
-            userRepository.save(user);
+            userRepository.save(newUser);
         }
     }
 }

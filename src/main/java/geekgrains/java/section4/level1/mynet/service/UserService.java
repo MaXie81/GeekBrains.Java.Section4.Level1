@@ -6,29 +6,25 @@ import geekgrains.java.section4.level1.mynet.entity.User;
 import geekgrains.java.section4.level1.mynet.repository.UserRepository;
 import geekgrains.java.section4.level1.mynet.util.Map;
 import geekgrains.java.section4.level1.mynet.util.UserBuilder;
-import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor
 public class UserService {
-    private final UserRepository userRepository;
-    private HashMap<String, User> userHashMap = new HashMap<>();
+    private UserRepository userRepository;
+
+    @Autowired
+    @Qualifier("UserProxyRepository")
+    public void setUserRepository(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     public User getUserByLogin(String login) {
-        User user = userHashMap.get(login);
-
-        if (user == null) {
-            user = userRepository.findByLogin(login).orElse(null);
-            if (user != null) {
-                userHashMap.put(login, user);
-            }
-        }
-        return user;
+        return userRepository.findByLogin(login).orElse(null);
     }
 
     public UserDto getUserData(String login) {

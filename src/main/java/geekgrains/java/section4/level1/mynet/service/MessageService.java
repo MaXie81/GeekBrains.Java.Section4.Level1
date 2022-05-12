@@ -18,7 +18,7 @@ import java.util.*;
 @RequiredArgsConstructor
 public class MessageService {
     private final MessageRepository messageRepository;
-    private final UserService userService;
+    private final IUserService userService;
 
     public List<MessageDto> getChatMessageListByFriendUser(String login, String friendLogin) {
         List<MessageDto> messageListDto = new ArrayList<>();

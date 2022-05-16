@@ -14,6 +14,10 @@ import java.util.List;
 public class MessageController {
     private final MessageService messageService;
 
+    @GetMapping("/{login}")
+    public List<MessageDto> getAllChatMessageList(@PathVariable String login) {
+        return messageService.getAllChatMessageList(login);
+    }
     @GetMapping("/friend/{login}")
     public List<MessageDto> getChatMessageListByFriendUser(@PathVariable String login, @RequestParam(name = "from") String authorLogin) {
         return messageService.getChatMessageListByFriendUser(login, authorLogin);

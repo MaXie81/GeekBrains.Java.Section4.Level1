@@ -5,10 +5,14 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 @Component
-public class UserDtoMapper {
+public class UserMapper {
     private final String URL = "jdbc:h2:file:C:\\DB\\MyNet";
     private final String USER = "sa";
     private final String PASSWORD = "";
@@ -17,8 +21,7 @@ public class UserDtoMapper {
     @PostConstruct
     public void init() {
         try {
-            connection = DriverManager.getConnection(URL, USER,PASSWORD);
-            System.out.println("!!! " + connection.isClosed());
+            connection = DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -27,13 +30,12 @@ public class UserDtoMapper {
     public void preDestroy() {
         try {
             connection.close();
-            System.out.println("!!! " + connection.isClosed());
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public UserDto getUser(String login) {
+    public UserDto get(String login) {
         try {
             PreparedStatement statement = connection.prepareStatement("SELECT LOGIN, PASSWORD, NICKNAME, EMAIL FROM USERS WHERE LOGIN = ?");
             statement.setString(1, login);
@@ -54,7 +56,7 @@ public class UserDtoMapper {
         return null;
     }
 
-    public void setUser(UserDto userDto) {
+    public void set(UserDto userDto) {
         try {
             PreparedStatement statement = connection.prepareStatement("UPDATE USERS SET PASSWORD = ?, NICKNAME = ?, EMAIL = ? WHERE LOGIN = ?");
             statement.setString(1, userDto.getPassword());
@@ -68,7 +70,7 @@ public class UserDtoMapper {
         }
     }
 
-    public void addUser(UserDto userDto) {
+    public void add(UserDto userDto) {
         try {
             PreparedStatement statement = connection.prepareStatement("INSERT INTO USERS(LOGIN, PASSWORD, NICKNAME, EMAIL) VALUES(?, ?, ?, ?)");
             statement.setString(1, userDto.getLogin());
@@ -82,7 +84,7 @@ public class UserDtoMapper {
         }
     }
 
-    public void deleteUser(String login) {
+    public void remove(String login) {
         try {
             PreparedStatement statement = connection.prepareStatement("DELETE FROM USERS WHERE LOGIN = ?");
             statement.setString(1, login);

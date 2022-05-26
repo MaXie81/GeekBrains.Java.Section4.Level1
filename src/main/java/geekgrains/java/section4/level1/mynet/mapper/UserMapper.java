@@ -13,15 +13,15 @@ import java.sql.SQLException;
 
 @Component
 public class UserMapper {
-    private final String URL = "jdbc:h2:file:C:\\DB\\MyNet";
-    private final String USER = "sa";
-    private final String PASSWORD = "";
+//    private final String URL = "jdbc:h2:file:C:\\DB\\MyNet";
+//    private final String USER = "sa";
+//    private final String PASSWORD = "";
     private Connection connection;
 
     @PostConstruct
     public void init() {
         try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            connection = DriverManager.getConnection("jdbc:h2:file:C:\\DB\\MyNet", "sa", "");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
